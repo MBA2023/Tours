@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+<link rel="stylesheet" href="{% static 'tours/css/schedule.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ tour.name }}</h1>
+<div class="tour__images">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for image in tour.images.all %}
+          {% if forloop.first %}
+            <div class="carousel-item active">
+              {{ image.url }}
+              <img src="{{ image.image.url }}" class="d-block w-50" alt=" {{tour.name}} ">
+            </div>
+          {% else %}
+            <div class="carousel-item">
+              <img src="{{ image.image.url }}" class="d-block w-50" alt=" {{tour.name}} ">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+</div>
+<div class="tour__description">
+  {{ tour.description|safe }}
+</div>
+
+<div class="card" id="schedule">
+    <div class="d-flex justify-content-start">
+        <div id="schedule__datepicker"></div>
+        <div id="schedule__timeList"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="https://unpkg.com/js-datepicker"></script>
+<script src="{% static 'tours/js/schedule.js' %}"></script>
+<script type="text/javascript">
+    {% autoescape off %}
+    const availableTimes = [
+        {% for slot in available_times %}
+            '{{ slot }}',
+        {% endfor %}
+    ]
+    {% endautoescape %}
+    const freeSlots = {
+        {% for slot_date, date_free_slots in free_slots.items %}
+            '{{ slot_date }}': {
+                {% for slot_time, slots in date_free_slots.items %}
+                    '{{ slot_time }}': {{ slots }},
+                {% endfor %}
+            },
+        {% endfor %}
+    }
+    const defaultMaxParticipants = {{ tour.max_participants }}
+    const bookPageUrl = '{% url 'tour_booking' tour.id %}'
+    const schedule = new Schedule(availableTimes, freeSlots, defaultMaxParticipants, bookPageUrl)
+    schedule.render()
+</script>
+{% endblock %}

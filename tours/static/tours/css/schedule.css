@@ -1,0 +1,17 @@
+#schedule {
+    display: inline-block;
+    padding: 2%;
+}
+
+#schedule__timeList {
+    margin-left: 25rem;
+}
+
+.schedule__slot {
+    display: flex;
+    justify-content: space-between;
+}
+
+.schedule__slot div {
+    margin: 0 1rem;
+}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not participant_create %}
+    <h4>Рады видеть вас снова!</h4>
+{% endif %}
+
+{% if not schedule_create %}
+    <h4>Вы уже зарегистрировались на эту экскурсию</h4>
+{% else %}
+    <h4>Вы успешно зарегистрировались на экскурсию {{ tour.name }}!</h4>
+    <p>
+        Место сбора и имя вашего гида вы получить по СМС.
+    </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h3>Бронирование на экскурсию {{ tour.name }}</h3>
+    <div class="row">
+        <div class="col-6">
+            <div class="tour__book_form">
+            <form method="post" action="{% url 'tour_booking' tour.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputFio" class="form-label">ФИО</label>
+                    <input type="text" name="fio" class="form-control" id="exampleInputFio" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPhone" class="form-label">Телефон</label>
+                    <input type="text" name="phone" class="form-control" id="exampleInputPhone" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" name="start_time" value="{{ start_time }}">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Success</button>
+                </div>
+
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

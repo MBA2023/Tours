@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Расписание</title>
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/schedule.css">
+</head>
+<body>
+    <div class="card" id="schedule">
+        <div class="d-flex justify-content-start">
+            <div id="schedule__datepicker"></div>
+            <div id="schedule__timeList"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/js-datepicker"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="js/schedule.js"></script>
+    <script type="text/javascript">
+        const available_times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','16:00','16:30','17:00','17:30']
+        const freeSlots = {
+            '2023-09-30': {
+                '8:00': 0,
+                '9:00': 5,
+                '10:00': 10
+            }
+        }
+        const defaultMaxParticipants = 15
+        const bookPageUrl = '/book/'
+        const schedule = new Schedule(available_times, freeSlots, defaultMaxParticipants, bookPageUrl)
+        schedule.render()
+    </script>
+</body>
+</html>

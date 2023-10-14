@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for tour in tours %}
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                  <img src="{{ tour.main_image.url }}" class="card-img-top" alt="{{ tour.name }}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ tour.name }}</h5>
+                    <p class="card-text">
+                        <div class="tour__description mb-3">
+                            {{ tour.description|truncatewords:"20" }}
+                        </div>
+                        <div class="tour__price fw-bold">{{ tour.display_price }}</div>
+                        <div class="tour__detail">
+                            <a href="{{ tour.get_absolute_url }}"><span class="badge bg-warning text-dark">Забронировать</span></a>
+                        </div>
+                    </p>
+<!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}
+
